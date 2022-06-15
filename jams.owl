@@ -15,7 +15,7 @@
      xmlns:chord="http://purl.org/ontology/chord/"
      xmlns:roman="http://w3id.org/polifonia/ontology/roman-chord/"
      xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:pon-res="http://w3id.org/polifonia/resource/">
+     xmlns:jams-res="http://w3id.org/polifonia/resource/jams/">
     <owl:Ontology rdf:about="http://w3id.org/polifonia/ontology/jams/">
         <owl:versionIRI rdf:resource="http://w3id.org/polifonia/ontology/jams/0.1"/>
         <dc:creator xml:lang="en">Andrea Poltronieri</dc:creator>
@@ -1207,27 +1207,27 @@
     
 
 
-    <!-- http://w3id.org/polifonia/resource/crowdsource -->
+    <!-- http://w3id.org/polifonia/resource/jams/crowdsource -->
 
-    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/crowdsource">
+    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/jams/crowdsource">
         <rdf:type rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotatorType"/>
         <rdfs:comment xml:lang="en">Crowdsource</rdfs:comment>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://w3id.org/polifonia/resource/expert_human -->
+    <!-- http://w3id.org/polifonia/resource/jams/expert_human -->
 
-    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/expert_human">
+    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/jams/expert_human">
         <rdf:type rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotatorType"/>
         <rdfs:comment xml:lang="en">Expert Human</rdfs:comment>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://w3id.org/polifonia/resource/program -->
+    <!-- http://w3id.org/polifonia/resource/jams/program -->
 
-    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/program">
+    <owl:NamedIndividual rdf:about="http://w3id.org/polifonia/resource/jams/program">
         <rdf:type rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotatorType"/>
         <rdfs:label xml:lang="en">Program</rdfs:label>
     </owl:NamedIndividual>
