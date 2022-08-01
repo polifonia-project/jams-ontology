@@ -33,10 +33,15 @@ JAMS is not only a formal scheme, but also a set of software tools that has been
 However, the objective of this ontology module is not only to recreate the structure of a JAMS file in an RDF serialisation. Instead, the aim of this module of the Polifonia Ontology Network is to enrich the JAMS model with new information that is semantically consistent. 
 
 ### JAMS Annotation
-![jams-annotation](https://user-images.githubusercontent.com/44606182/173377852-6a07e415-ae5d-4af9-aef6-5e52f15b4645.png)
+![jams-annotation](./assets/jams-annotation.png)
 
 ### JAMS Observation
-![jams-observations](https://user-images.githubusercontent.com/44606182/173377824-0776045e-a02f-4e6d-add2-9aa23d2f5cf0.png)
+The JAMS Ontology allows different types of JAMS Observation to be modelled. 
+For the sake of clarity, two different types are shown here in separate diagrams. 
+
+![jams-observations](./assets/jams-observations.png)
+
+![jams-pattern](./assets/jams-pattern.png)
 
 ## Bibliography
 
