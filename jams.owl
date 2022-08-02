@@ -17,12 +17,13 @@
      xmlns:terms="http://purl.org/dc/terms/"
      xmlns:jams-res="http://w3id.org/polifonia/resource/jams/">
     <owl:Ontology rdf:about="http://w3id.org/polifonia/ontology/jams/">
-        <owl:versionIRI rdf:resource="http://w3id.org/polifonia/ontology/jams/0.1"/>
+        <owl:versionIRI rdf:resource="http://w3id.org/polifonia/ontology/jams/0.1/"/>
         <dc:creator xml:lang="en">Andrea Poltronieri</dc:creator>
         <dc:creator xml:lang="en">Valentina Presutti</dc:creator>
         <dc:license rdf:resource="https://creativecommons.org/licenses/by-sa/4.0/"/>
         <terms:license rdf:resource="https://creativecommons.org/licenses/by-sa/4.0/"/>
-        <rdfs:comment xml:lang="en">JAMS Ontology</rdfs:comment>
+        <rdfs:comment xml:lang="en">An ontology for modelling a JAMS file containing different types of musical annotations. 
+In particular, this ontology focuses on the Chord Annotations contained in the JAMS file and their attributes.</rdfs:comment>
         <rdfs:label xml:lang="en">JAMS Ontology</rdfs:label>
         <owl:versionInfo xml:lang="en">1.0</owl:versionInfo>
     </owl:Ontology>
