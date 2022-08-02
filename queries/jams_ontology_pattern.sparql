@@ -251,6 +251,7 @@ WHERE {
         ?observation xyz:duration ?observation_duration .
         BIND (xsd:float(?observation_duration) AS ?observation_duration_float )
         BIND (jams:ScorePatternOccurrence AS ?occurrence_type)
+
         ?observation_value xyz:pattern%5Fcontent ?pattern_content ;
         xyz:pattern%5Ftype ?pattern_type ;
         xyz:pattern%5Ffrequency ?pattern_frequency ;
@@ -282,6 +283,6 @@ WHERE {
     BIND (IRI(CONCAT(STR(pon-resource:JAMSMetricalTime), "/", REPLACE (STR(REPLACE(STR(?observation_value), " ", "_")), "/", "_"), "@", STR(?observation_time_float))) AS ?metrical_time_uri_observation)
     BIND (IRI(CONCAT(STR(pon-resource:Agent), "/Composer/", STR(REPLACE(?composer, " ", "_"))  )) AS ?composer_uri)
     BIND (IRI(CONCAT(STR(pon-resource:Agent), "/Performer/", STR(REPLACE(?performer, " ", "_"))  )) AS ?performer_uri)}
-    BIND (IRI(CONCAT(STR(pon-resource:pattern), "/", REPLACE(STR(?pattern_content), ",", "_"))) AS ?pattern_uri)
-    BIND (IRI(CONCAT(STR(pon-resource:JAMSObservation), "/", REPLACE (STR(REPLACE(STR(?pattern_content), " ", "_")), "/", "_"), "@", STR(?observation_time_float))) AS ?observation_uri)
+    BIND (IRI(CONCAT(STR(pon-resource:pattern), "/", REPLACE(STR(?pattern_content), ", ", "_"))) AS ?pattern_uri)
+    BIND (IRI(CONCAT(STR(pon-resource:JAMSObservation), "/", REPLACE (STR(REPLACE(STR(?pattern_content), ", ", "_")), "/", "_"), "@", STR(?observation_time_float))) AS ?observation_uri)
 }
