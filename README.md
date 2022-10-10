@@ -41,8 +41,6 @@ For the sake of clarity, two different types are shown here in separate diagrams
 
 ![jams-observations](./assets/jams-observations.png)
 
-![jams-pattern](./assets/jams-pattern.png)
-
 ## Bibliography
 
 1. Eric J. Humphrey, Justin Salamon, Oriol Nieto, Jon Forsyth, Rachel M. Bittner, and Juan P. Bello, 
