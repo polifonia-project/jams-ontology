@@ -21,7 +21,7 @@
           <y:Fill color="#FF99CC" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="3.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="22" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="55.8203125" horizontalTextPosition="center" iconTextGap="4" modelName="eight_pos" modelPosition="sw" textColor="#000000" verticalTextPosition="bottom" visible="true" width="223.162109375" x="-227.162109375" xml:space="preserve" y="20.0">pon-res:Wikifonia39
-ScoreAnnotation</y:NodeLabel>
+ChordAnnotation</y:NodeLabel>
           <y:Shape type="ellipse"/>
         </y:ShapeNode>
       </data>
@@ -1030,7 +1030,6 @@ TimeComponent2</y:NodeLabel>
       </data>
     </node>
     <node id="n84">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="95.42526985885655" width="344.4047690439496" x="141.0585117017539" y="-182.8435082147852"/>
