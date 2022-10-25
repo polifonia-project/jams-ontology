@@ -1,0 +1,745 @@
+@prefix : <http://w3id.org/polifonia/ontology/jams/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix mc: <http://w3id.org/polifonia/ontology/musical-composition/> .
+@prefix mf: <http://w3id.org/polifonia/ontology/musical-features/> .
+@prefix mp: <http://w3id.org/polifonia/ontology/musical-performance/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <http://w3id.org/polifonia/ontology/core/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix chord: <http://purl.org/ontology/chord/> .
+@prefix roman: <http://w3id.org/polifonia/ontology/roman-chord/> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix polifonia-res: <http://w3id.org/polifonia/resource/> .
+@base <http://w3id.org/polifonia/ontology/jams/> .
+
+<http://w3id.org/polifonia/ontology/jams/> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://w3id.org/polifonia/ontology/jams/0.1/> ;
+                                            dc:creator "Andrea Poltronieri"@en ,
+                                                       "Valentina Presutti"@en ;
+                                            dc:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+                                            terms:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+                                            rdfs:comment """An ontology for modelling a JAMS file containing different types of musical annotations. 
+In particular, this ontology focuses on the Chord Annotations contained in the JAMS file and their attributes."""@en ;
+                                            rdfs:label "JAMS Ontology"@en ;
+                                            owl:versionInfo "1.0"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/license
+dc:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+terms:license rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://w3id.org/polifonia/ontology/core/hasID
+core:hasID rdf:type owl:ObjectProperty ;
+           rdfs:domain mc:MusicalComposition ;
+           rdfs:range core:Identifier ;
+           rdfs:label "has ID"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotationType
+:hasAnnotationType rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isAnnotationTypeOf ;
+                   rdfs:domain :JAMSAnnotation ;
+                   rdfs:range :AnnotationType ;
+                   rdfs:label "Has Annotation Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotator
+:hasAnnotator rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isAnnotatorOf ;
+              rdfs:domain :JAMSAnnotation ;
+              rdfs:range :Annotator ;
+              owl:propertyDisjointWith :hasAnnotatorType ,
+                                       :hasJAMSAnnotation ,
+                                       :includesObservation ,
+                                       :isAnnotatorOf ,
+                                       :isAnnotatorTypeOf ,
+                                       :isJAMSAnnotationOf ,
+                                       :isObservationOf ;
+              rdfs:comment "Links a JAMS annotation to the Annotator the annotated the JAMS."@en ;
+              rdfs:label "Has Annotator"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotatorType
+:hasAnnotatorType rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :isAnnotatorTypeOf ;
+                  rdfs:domain :Annotator ;
+                  rdfs:range :AnnotatorType ;
+                  owl:propertyDisjointWith :hasJAMSAnnotation ,
+                                           :includesObservation ,
+                                           :isAnnotatorOf ,
+                                           :isAnnotatorTypeOf ,
+                                           :isJAMSAnnotationOf ,
+                                           :isObservationOf ;
+                  rdfs:comment "Links the Annotator class to its Annotator Type, describing how the JAMS annotations were generated."@en ;
+                  rdfs:label "Has Annotator Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasChordSubject
+:hasChordSubject rdf:type owl:ObjectProperty ;
+                 rdfs:domain :JAMSObservation ;
+                 rdfs:range mf:Chord ;
+                 rdfs:label "Has Chord Subject"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasEndMusicTimeIndex
+:hasEndMusicTimeIndex rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasMusicTimeIndex ;
+                      rdfs:domain :MusicTimeInterval ;
+                      rdfs:range :MusicTimeIndex .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasFormat
+:hasFormat rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :File ;
+           rdfs:range :Format .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasJAMSAnnotation
+:hasJAMSAnnotation rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isJAMSAnnotationOf ;
+                   rdf:type owl:InverseFunctionalProperty ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( mf:Score
+                                               mp:Recording
+                                             )
+                               ] ;
+                   rdfs:range :JAMSAnnotation ;
+                   owl:propertyDisjointWith :includesObservation ,
+                                            :isAnnotatorOf ,
+                                            :isAnnotatorTypeOf ,
+                                            :isJAMSAnnotationOf ,
+                                            :isObservationOf ;
+                   rdfs:comment "Relates a Score or a Recording to the JAMS annotation describing the track."@en ;
+                   rdfs:label "Has JAMS Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration
+:hasMusicTimeDuration rdf:type owl:ObjectProperty ;
+                      rdfs:domain :MusicTimeInterval ;
+                      rdfs:range :MusicTimeDuration ;
+                      rdfs:label "Has Music Time Duration"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex
+:hasMusicTimeIndex rdf:type owl:ObjectProperty ;
+                   rdfs:domain :MusicTimeInterval ;
+                   rdfs:range :MusicTimeIndex ;
+                   rdfs:label "Has Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent
+:hasMusicTimeIndexComponent rdf:type owl:ObjectProperty ;
+                            rdfs:domain :MusicTimeIndex ;
+                            rdfs:range :MusicTimeIndexComponent ;
+                            rdfs:label "Has Music Time Index Component"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval
+:hasMusicTimeInterval rdf:type owl:ObjectProperty ;
+                      owl:inverseOf :isMusicTimeIntervalOf ;
+                      rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( :JAMSAnnotation
+                                                  :JAMSObservation
+                                                )
+                                  ] ;
+                      rdfs:range :MusicTimeInterval ;
+                      rdfs:label "Has Music Time Interval"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasStartMusicTimeIndex
+:hasStartMusicTimeIndex rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasMusicTimeIndex ;
+                        rdfs:domain :MusicTimeInterval ;
+                        rdfs:range :MusicTimeIndex .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasSubject
+:hasSubject rdf:type owl:ObjectProperty ;
+            rdfs:domain :JAMSObservation ;
+            rdfs:range mf:MusicalFeature ;
+            rdfs:label "Has Subject"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasValueType
+:hasValueType rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :MusicTimeDuration
+                                          :MusicTimeIndexComponent
+                                        )
+                          ] ;
+              rdfs:range :MusicTimeValueType ;
+              rdfs:label "Has Value Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/includesObservation
+:includesObservation rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :isObservationOf ;
+                     rdf:type owl:InverseFunctionalProperty ;
+                     rdfs:domain :JAMSAnnotation ;
+                     rdfs:range :JAMSObservation ;
+                     owl:propertyDisjointWith :isAnnotatorOf ,
+                                              :isAnnotatorTypeOf ,
+                                              :isJAMSAnnotationOf ,
+                                              :isObservationOf ;
+                     rdfs:comment "Links a JAMS Annotation to the JAMS Onservation(s) it contains."@en ;
+                     rdfs:label "Includes Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotationTypeOf
+:isAnnotationTypeOf rdf:type owl:ObjectProperty ;
+                    rdfs:domain :AnnotationType ;
+                    rdfs:range :JAMSAnnotation ;
+                    rdfs:label "Is Annotation Type Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotatorOf
+:isAnnotatorOf rdf:type owl:ObjectProperty ;
+               rdfs:domain :Annotator ;
+               rdfs:range :JAMSAnnotation ;
+               owl:propertyDisjointWith :isAnnotatorTypeOf ,
+                                        :isJAMSAnnotationOf ,
+                                        :isObservationOf ;
+               rdfs:comment "Inverse of hasAnnotator. Links the Annotator to the JAMS Annotation annotated by such annotator."@en ;
+               rdfs:label "Is Annotator Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotatorTypeOf
+:isAnnotatorTypeOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain :AnnotatorType ;
+                   rdfs:range :Annotator ;
+                   owl:propertyDisjointWith :isJAMSAnnotationOf ,
+                                            :isObservationOf ;
+                   rdfs:comment "Inverse of hasAnnotatorType. Links the Annotator Type to the Annotator class."@en ;
+                   rdfs:label "Is Annotator Type Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isJAMSAnnotationOf
+:isJAMSAnnotationOf rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:domain :JAMSAnnotation ;
+                    rdfs:range [ rdf:type owl:Class ;
+                                 owl:unionOf ( mf:Score
+                                               mp:Recording
+                                             )
+                               ] ;
+                    owl:propertyDisjointWith :isObservationOf ;
+                    rdfs:comment "Inverse of hasJAMSAnnotation. It links the JAMS Annotation to either a Recording o a Score."@en ;
+                    rdfs:label "Is JAMS Annotation Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf
+:isMusicTimeIntervalOf rdf:type owl:ObjectProperty ;
+                       rdfs:domain :MusicTimeInterval ;
+                       rdfs:range [ rdf:type owl:Class ;
+                                    owl:unionOf ( :JAMSAnnotation
+                                                  :JAMSObservation
+                                                )
+                                  ] ;
+                       rdfs:label "Is Music Time Interval Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isObservationOf
+:isObservationOf rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :JAMSObservation ;
+                 rdfs:range :JAMSAnnotation ;
+                 rdfs:comment "Inverse of includesObservation. Links a JAMS Observation to the JAMS Annotation to which it belongs."@en ;
+                 rdfs:label "Is Observation Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-composition/hasComposer
+mc:hasComposer rdf:type owl:ObjectProperty ;
+               rdfs:domain mc:MusicalComposition ;
+               rdfs:range core:Agent ;
+               rdfs:label "Has Composer"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-composition/hasScore
+mc:hasScore rdf:type owl:ObjectProperty ;
+            rdfs:domain mc:MusicalComposition ;
+            rdfs:range mf:Score ;
+            rdfs:label "Has Score"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/hasPerformerSituation
+mp:hasPerformerSituation rdf:type owl:ObjectProperty ;
+                         rdfs:domain mp:Recording ;
+                         rdfs:range mp:PerformerSituation ;
+                         rdfs:label "Has Performer Situation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/involvesPerformer
+mp:involvesPerformer rdf:type owl:ObjectProperty ;
+                     rdfs:domain mp:PerformerSituation ;
+                     rdfs:range core:Agent ;
+                     rdfs:label "Involves Performer"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/performedBy
+mp:performedBy rdf:type owl:ObjectProperty ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( mf:Score
+                                           mp:Recording
+                                         )
+                           ] ;
+               rdfs:range core:Agent ;
+               rdfs:label "Performed By"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/recordingOf
+mp:recordingOf rdf:type owl:ObjectProperty ;
+               rdfs:domain mp:Recording ;
+               rdfs:range mc:MusicalComposition ;
+               rdfs:label "Recording Of"@en .
+
+
+###  http://www.w3.org/ns/prov#WasDerivedFrom
+prov:WasDerivedFrom rdf:type owl:ObjectProperty ;
+                    rdfs:domain :JAMSAnnotation ,
+                                :JAMSFile ;
+                    rdfs:range :Dataset ,
+                               :JAMSFile ;
+                    rdfs:label "Was Derived From"@en .
+
+
+###  http://www.w3.org/ns/prov#wasMemberOf
+prov:wasMemberOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain :JAMSFile ;
+                 rdfs:range mf:Corpus ;
+                 rdfs:label "Was Member Of"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://w3id.org/polifonia/ontology/core/name
+core:name rdf:type owl:DatatypeProperty ;
+          rdfs:domain core:Agent ;
+          rdfs:range xsd:string ;
+          rdfs:label "Name"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasConfidence
+:hasConfidence rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :JAMSObservation ;
+               rdfs:range xsd:float ;
+               owl:propertyDisjointWith :hasName ,
+                                        :hasValue ;
+               rdfs:comment "The confidence of an annotation/observation, as described by the JAMS documentation, hence expressed with a floating number from 0 to 1."@en ;
+               rdfs:label "Has Confidence"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasName
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Annotator ;
+         rdfs:range xsd:string ;
+         owl:propertyDisjointWith :hasValue ;
+         rdfs:comment "The name of an annotator, which can be either human, artificial (e.g. the name of a software) or describing a group of people (e.g. the name of a crowdsourcing service/event)."@en ;
+         rdfs:label "Has Name"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasValue
+:hasValue rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :MusicTimeDuration
+                                      :MusicTimeIndexComponent
+                                    )
+                      ] ;
+          rdfs:range rdfs:Literal ;
+          rdfs:label "Has Value"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-composition/title
+mc:title rdf:type owl:DatatypeProperty ;
+         rdfs:domain mc:MusicalComposition ;
+         rdfs:range xsd:string ;
+         rdfs:label "Title"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-features/duration
+mf:duration rdf:type owl:DatatypeProperty ;
+            rdfs:domain mp:Recording ;
+            rdfs:range xsd:float ;
+            rdfs:label "Duration"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/ontology/chord/Chord
+chord:Chord rdf:type owl:Class ;
+            owl:equivalentClass :HarteChord ;
+            rdfs:label "Harte Chord"@en .
+
+
+###  http://w3id.org/polifonia/ontology/core/Agent
+core:Agent rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/core/Identifier
+core:Identifier rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/jams/AnnotationType
+:AnnotationType rdf:type owl:Class ;
+                rdfs:label "Annotation Type"@en ,
+                           "The type of the annotation. It maps directly to the annotation's \"namespace\" of a JAMS file."@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/Annotator
+:Annotator rdf:type owl:Class ;
+           rdfs:subClassOf core:Agent ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasAnnotatorType ;
+                             owl:allValuesFrom :AnnotatorType
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasName ;
+                             owl:allValuesFrom xsd:string
+                           ] ;
+           owl:disjointWith :AnnotatorType ,
+                            :Chord ,
+                            :File ,
+                            :Format ,
+                            :JAMSAnnotation ,
+                            :JAMSFile ,
+                            :JAMSObservation ,
+                            mc:MusicalComposition ,
+                            mf:Corpus ;
+           rdfs:comment "The annotator of a JAMS annotation, whether understood as a physical person or as a machine that has performed an automatic transcription."@en ;
+           rdfs:label "Annotator"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/AnnotatorType
+:AnnotatorType rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :isAnnotatorOf ;
+                                 owl:allValuesFrom :Annotator
+                               ] ;
+               owl:disjointWith :JAMSAnnotation ,
+                                :JAMSFile ,
+                                :JAMSObservation ;
+               rdfs:comment "The type of annotator of a JAMS annotation, whether human or the result of an automatic or crowdsourced annotation."@en ;
+               rdfs:label "Annotator Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/Chord
+:Chord rdf:type owl:Class ;
+       owl:disjointWith :JAMSAnnotation ,
+                        :JAMSFile ,
+                        :JAMSObservation ;
+       rdfs:comment "A musical Chord as central element of a JAMS Observation. More generally, a chrod is defined as any harmonic set of pitches consisting of multiple notes that are heard as if sounding simultaneously."@en ;
+       rdfs:label "Chord"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/Dataset
+:Dataset rdf:type owl:Class ;
+         rdfs:subClassOf mf:Corpus ;
+         owl:disjointWith :JAMSAnnotation ,
+                          :JAMSFile ,
+                          :JAMSObservation ,
+                          mf:Corpus ;
+         rdfs:comment "A dataset which contains multiple music data, either scores or any form of music annotations."@en ;
+         rdfs:label "Dataset"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/File
+:File rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasFormat ;
+                        owl:allValuesFrom :Format
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasFormat ;
+                        owl:hasValue <http://w3id.org/polifonia/resource/Format/jams>
+                      ] ;
+      rdfs:comment "Any type of file"@en ;
+      rdfs:label "File"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/Format
+:Format rdf:type owl:Class ;
+        rdfs:comment "Format of files e.g. .jams, .doc, .xml"@en ;
+        rdfs:label "Format"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/HarteChord
+:HarteChord rdf:type owl:Class ;
+            rdfs:subClassOf :Chord ;
+            owl:disjointWith :RomanChord ;
+            rdfs:comment "A Musical Chord annotated according to the Harte Notation."@en ;
+            rdfs:label "Harte Chord"@en ;
+            rdfs:seeAlso <https://ismir2005.ismir.net/proceedings/1080.pdf> .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAnnotation
+:JAMSAnnotation rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasAnnotator ;
+                                  owl:allValuesFrom :Annotator
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :includesObservation ;
+                                  owl:allValuesFrom :JAMSObservation
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prov:WasDerivedFrom ;
+                                  owl:allValuesFrom :JAMSFile
+                                ] ;
+                owl:disjointWith :JAMSFile ,
+                                 :JAMSObservation ;
+                rdfs:comment "A group of observations that share the same type of annotation (e.g. score or audio) and the same syntax with which the agreement is expressed (e.g. Harte or Roman)."@en ;
+                rdfs:label "JAMS Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAudioAnnotation
+:JAMSAudioAnnotation rdf:type owl:Class ;
+                     rdfs:subClassOf :JAMSAnnotation ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :includesObservation ;
+                                       owl:allValuesFrom :JAMSAudioObservation
+                                     ] ;
+                     owl:disjointWith :JAMSScoreAnnotation ;
+                     rdfs:comment "An annotation describing a piece of music annotated on the basis of an audio track."@en ;
+                     rdfs:label "JAMS Audio Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAudioObservation
+:JAMSAudioObservation rdf:type owl:Class ;
+                      rdfs:subClassOf :JAMSObservation ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:allValuesFrom :JAMSAudioAnnotation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :JAMSAudioAnnotation
+                                      ] ;
+                      owl:disjointWith :JAMSScoreObservation ;
+                      rdfs:comment "A observation defined on the audio signal, i.e. described from a temporal point of view using real time, usually expressed in seconds."@en ;
+                      rdfs:label "JAMS Audio Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSFile
+:JAMSFile rdf:type owl:Class ;
+          rdfs:subClassOf :File ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty prov:WasDerivedFrom ;
+                            owl:allValuesFrom :Dataset
+                          ] ;
+          owl:disjointWith :JAMSObservation ;
+          rdfs:comment "A file in JAMS format (with extension .jams, a serialisation of JSON), containing musical annotations structured according to JAMS specifications."@en ;
+          rdfs:label "The class of files encoded in JAMS format (JAMS is a datamodel serialised in a json-specific format)."@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSObservation
+:JAMSObservation rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :isObservationOf ;
+                                   owl:allValuesFrom :JAMSAnnotation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :isObservationOf ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :JAMSAnnotation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasConfidence ;
+                                   owl:allValuesFrom xsd:float
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasConfidence ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onDataRange xsd:float
+                                 ] ;
+                 rdfs:comment "An observation of the annotation, understood as an event defined in time (both real and symbolic) that has a value (e.g. a specific agreement) and a precise duration."@en ;
+                 rdfs:label "JAMS Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSScoreAnnotation
+:JAMSScoreAnnotation rdf:type owl:Class ;
+                     rdfs:subClassOf :JAMSAnnotation ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :includesObservation ;
+                                       owl:allValuesFrom :JAMSScoreObservation
+                                     ] ;
+                     rdfs:comment "An annotation describing a piece of music annotated on the basis of a music score."@en ;
+                     rdfs:label "JAMS Score Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSScoreObservation
+:JAMSScoreObservation rdf:type owl:Class ;
+                      rdfs:subClassOf :JAMSObservation ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:allValuesFrom :JAMSScoreAnnotation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :JAMSScoreAnnotation
+                                      ] ;
+                      rdfs:comment "A observation defined on a symbolic notation or on a music score, i.e. described from a temporal point of view using references to symbolic elements defined by the notation itself."@en ;
+                      rdfs:label "JAMS Score Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeDuration
+:MusicTimeDuration rdf:type owl:Class ;
+                   rdfs:label "Music Time Duration"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeIndex
+:MusicTimeIndex rdf:type owl:Class ;
+                rdfs:label "Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent
+:MusicTimeIndexComponent rdf:type owl:Class ;
+                         rdfs:label "Music Time Index Comonent"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeInterval
+:MusicTimeInterval rdf:type owl:Class ;
+                   rdfs:label "Music Time Interval"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeValueType
+:MusicTimeValueType rdf:type owl:Class ;
+                    rdfs:label "Music Time Value Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/RomanChord
+:RomanChord rdf:type owl:Class ;
+            owl:equivalentClass roman:Chord ;
+            rdfs:subClassOf :Chord ;
+            rdfs:comment "A Musical Chord annotated according to the Roman Numeral Notation, as a result of a Roman numeral analysis."@en ;
+            rdfs:label "Roman Chord"@en .
+
+
+###  http://w3id.org/polifonia/ontology/musical-composition/MusicalComposition
+mc:MusicalComposition rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/musical-features/Chord
+mf:Chord rdf:type owl:Class ;
+         rdfs:subClassOf mf:MusicalFeature .
+
+
+###  http://w3id.org/polifonia/ontology/musical-features/Corpus
+mf:Corpus rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/musical-features/MusicalFeature
+mf:MusicalFeature rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/musical-features/Score
+mf:Score rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/PerformerSituation
+mp:PerformerSituation rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/musical-performance/Recording
+mp:Recording rdf:type owl:Class .
+
+
+###  http://w3id.org/polifonia/ontology/roman-chord/Chord
+roman:Chord rdf:type owl:Class ;
+            rdfs:label "Roman Chord"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord
+<http://w3id.org/polifonia/resource/AnnotationType/chord> rdf:type owl:NamedIndividual ,
+                                                                   :AnnotationType .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord_harte
+<http://w3id.org/polifonia/resource/AnnotationType/chord_harte> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotationType .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord_roman
+<http://w3id.org/polifonia/resource/AnnotationType/chord_roman> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotationType .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/key_mode
+<http://w3id.org/polifonia/resource/AnnotationType/key_mode> rdf:type owl:NamedIndividual ,
+                                                                      :AnnotationType .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/crowd
+<http://w3id.org/polifonia/resource/AnnotatorType/crowd> rdf:type owl:NamedIndividual ,
+                                                                  :AnnotatorType ;
+                                                         rdfs:comment "Then annotations are obtained through crowdsourcing the agent producing them is the crowd"@en ;
+                                                         rdfs:label "Crowd"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/expert_human
+<http://w3id.org/polifonia/resource/AnnotatorType/expert_human> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotatorType ;
+                                                                rdfs:comment "Expert Human"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/program
+<http://w3id.org/polifonia/resource/AnnotatorType/program> rdf:type owl:NamedIndividual ,
+                                                                    :AnnotatorType ;
+                                                           rdfs:label "Program"@en .
+
+
+###  http://w3id.org/polifonia/resource/Format/jams
+<http://w3id.org/polifonia/resource/Format/jams> rdf:type owl:NamedIndividual ,
+                                                          :Format .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/beat
+<http://w3id.org/polifonia/resource/MusicTimeValueType/beat> rdf:type owl:NamedIndividual ,
+                                                                      :MusicTimeValueType .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/measure
+<http://w3id.org/polifonia/resource/MusicTimeValueType/measure> rdf:type owl:NamedIndividual ,
+                                                                         :MusicTimeValueType .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/second
+<http://w3id.org/polifonia/resource/MusicTimeValueType/second> rdf:type owl:NamedIndividual ,
+                                                                        :MusicTimeValueType .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
