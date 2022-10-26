@@ -202,6 +202,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex -->
 
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex">
+        <owl:inverseOf rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf"/>
         <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
         <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
         <rdfs:label xml:lang="en">Has Music Time Index</rdfs:label>
@@ -212,6 +213,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent -->
 
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent">
+        <owl:inverseOf rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexComponentOf"/>
         <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
         <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
         <rdfs:label xml:lang="en">Has Music Time Index Component</rdfs:label>
@@ -233,6 +235,24 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         </rdfs:domain>
         <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
         <rdfs:label xml:lang="en">Has Music Time Interval</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType">
+        <owl:inverseOf rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeValueTypeOf"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+        <rdfs:label xml:lang="en">Has Music Time Value Type</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -348,6 +368,39 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     
 
 
+    <!-- http://w3id.org/polifonia/ontology/jams/isMusicTimeDurationOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/isMusicTimeDurationOf"/>
+    
+
+
+    <!-- http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexComponentOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexComponentOf">
+        <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+        <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
+        <rdfs:label xml:lang="en">Is Music Time Index Component Of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf">
+        <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:label xml:lang="en">Is Music Time Index Of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf -->
 
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf">
@@ -361,6 +414,23 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
             </owl:Class>
         </rdfs:range>
         <rdfs:label xml:lang="en">Is Music Time Interval Of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/polifonia/ontology/jams/isMusicTimeValueTypeOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/isMusicTimeValueTypeOf">
+        <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:label xml:lang="en">Is Music Time Value Type Of</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -447,10 +517,22 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://www.w3.org/ns/prov#WasDerivedFrom -->
 
     <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#WasDerivedFrom">
-        <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
-        <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
-        <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/Dataset"/>
-        <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/Dataset"/>
+                    <rdf:Description rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
         <rdfs:label xml:lang="en">Was Derived From</rdfs:label>
     </owl:ObjectProperty>
     
@@ -586,6 +668,12 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/AnnotationType -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/AnnotationType">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isAnnotationTypeOf"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Annotation Type</rdfs:label>
         <rdfs:label xml:lang="en">The type of the annotation. It maps directly to the annotation&apos;s &quot;namespace&quot; of a JAMS file.</rdfs:label>
     </owl:Class>
@@ -657,10 +745,8 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/Dataset">
         <rdfs:subClassOf rdf:resource="http://w3id.org/polifonia/ontology/musical-features/Corpus"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/musical-features/Corpus"/>
         <rdfs:comment xml:lang="en">A dataset which contains multiple music data, either scores or any form of music annotations.</rdfs:comment>
         <rdfs:label xml:lang="en">Dataset</rdfs:label>
     </owl:Class>
@@ -714,8 +800,20 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation">
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasAnnotationType"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotationType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasAnnotator"/>
                 <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/Annotator"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -728,6 +826,20 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#WasDerivedFrom"/>
                 <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasAnnotationType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotationType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
@@ -789,6 +901,12 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
                 <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/Dataset"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#wasMemberOf"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/musical-features/Corpus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
         <rdfs:comment xml:lang="en">A file in JAMS format (with extension .jams, a serialisation of JSON), containing musical annotations structured according to JAMS specifications.</rdfs:comment>
         <rdfs:label xml:lang="en">The class of files encoded in JAMS format (JAMS is a datamodel serialised in a json-specific format).</rdfs:label>
@@ -801,8 +919,40 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/JAMSObservation">
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasChordSubject"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/musical-features/Chord"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasSubject"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/musical-features/MusicalFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isObservationOf"/>
                 <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasSubject"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/musical-features/MusicalFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -873,6 +1023,37 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/MusicTimeDuration -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeDurationOf"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValue"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Music Time Duration</rdfs:label>
     </owl:Class>
     
@@ -881,6 +1062,31 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/MusicTimeIndex -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Music Time Index</rdfs:label>
     </owl:Class>
     
@@ -889,6 +1095,37 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexComponentOf"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeValueType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValue"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Music Time Index Comonent</rdfs:label>
     </owl:Class>
     
@@ -897,6 +1134,44 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/MusicTimeInterval -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex"/>
+                <owl:allValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Music Time Interval</rdfs:label>
     </owl:Class>
     
@@ -905,6 +1180,18 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/MusicTimeValueType -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeValueTypeOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://w3id.org/polifonia/ontology/jams/isMusicTimeValueTypeOf"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="en">Music Time Value Type</rdfs:label>
     </owl:Class>
     
