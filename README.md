@@ -2,6 +2,8 @@
 
 The JAMS ontology module of the [Polifonia ontology network](https://github.com/polifonia-project/ontology-network) provides a comprehensive schema to describe JAMS files and their annotations.
 
+The complete documentation of the ontology can be found at [https://polifonia-project.github.io/jams-ontology/](https://polifonia-project.github.io/jams-ontology/).
+
 ## Competency questions addressed by this ontology module
 
 | **ID**   | **Competency question**                                                                                            |
