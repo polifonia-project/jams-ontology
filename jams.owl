@@ -187,6 +187,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/hasChordSubject -->
 
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasChordSubject">
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/polifonia/ontology/jams/hasSubject"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
         <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/musical-features/Chord"/>
@@ -196,7 +197,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval"/>
-        <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasSubject"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValueType"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/includesObservation"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/isAnnotationTypeOf"/>
