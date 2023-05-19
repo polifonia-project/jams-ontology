@@ -3,6 +3,8 @@
      xml:base="http://w3id.org/polifonia/ontology/jams/"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:mm="https://w3id.org/polifonia/ontology/music-meta/"
+     xmlns:mp="https://w3id.org/polifonia/ontology/music-projection/"
+     xmlns:mr="https://w3id.org/polifonia/ontology/music-representation/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
@@ -10,13 +12,14 @@
      xmlns:core="https://w3id.org/polifonia/ontology/core/"
      xmlns:prov="http://www.w3.org/ns/prov#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:chord="http://purl.org/ontology/chord/"
-     xmlns:roman="http://w3id.org/polifonia/ontology/roman-chord/"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:polifonia-res="http://w3id.org/polifonia/resource/">
+     xmlns:polifonia-res="http://w3id.org/polifonia/resource/"
+     xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#">
     <owl:Ontology rdf:about="http://w3id.org/polifonia/ontology/jams/">
         <owl:versionIRI rdf:resource="http://w3id.org/polifonia/ontology/jams/1.0/"/>
-        <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/music-meta/1.0/"/>
+        <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/music-projection/"/>
+        <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/music-representation/"/>
         <dc:creator xml:lang="en">Albert Merono Penuela</dc:creator>
         <dc:creator xml:lang="en">Andrea Poltronieri</dc:creator>
         <dc:creator>Jacpo de Berardinis</dc:creator>
@@ -177,6 +180,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         <rdfs:subPropertyOf rdf:resource="http://w3id.org/polifonia/ontology/jams/hasSubject"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-projection/Chord"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasFormat"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasJAMSAnnotation"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration"/>
@@ -251,6 +255,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasJAMSAnnotation">
         <owl:inverseOf rdf:resource="http://w3id.org/polifonia/ontology/jams/isJAMSAnnotationOf"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-representation/MusicContent"/>
         <rdfs:range rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex"/>
@@ -410,6 +415,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <owl:ObjectProperty rdf:about="http://w3id.org/polifonia/ontology/jams/hasSubject">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-representation/MusicProjection"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/hasValueType"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/isAnnotatorOf"/>
         <owl:propertyDisjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/isAnnotatorTypeOf"/>
@@ -731,15 +737,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     
 
 
-    <!-- http://purl.org/ontology/chord/Chord -->
-
-    <owl:Class rdf:about="http://purl.org/ontology/chord/Chord">
-        <owl:equivalentClass rdf:resource="http://w3id.org/polifonia/ontology/jams/HarteChord"/>
-        <rdfs:label xml:lang="en">Harte Chord</rdfs:label>
-    </owl:Class>
-    
-
-
     <!-- http://w3id.org/polifonia/ontology/jams/AnnotationType -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/AnnotationType">
@@ -750,7 +747,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/AnnotatorType"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/Chord"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/File"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/Format"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
@@ -769,7 +765,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     <!-- http://w3id.org/polifonia/ontology/jams/AnnotatorType -->
 
     <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/AnnotatorType">
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/Chord"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/File"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/Format"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
@@ -782,25 +777,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
         <rdfs:comment xml:lang="en">The type of annotator of a JAMS annotation, whether human or the result of an automatic or crowdsourced annotation.</rdfs:comment>
         <rdfs:label xml:lang="en">Annotator Type</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/polifonia/ontology/jams/Chord -->
-
-    <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/Chord">
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/File"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/Format"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSAnnotation"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSFile"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/JAMSObservation"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeDuration"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndex"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
-        <rdfs:comment xml:lang="en">A musical Chord as central element of a JAMS Observation. More generally, a chrod is defined as any harmonic set of pitches consisting of multiple notes that are heard as if sounding simultaneously.</rdfs:comment>
-        <rdfs:label xml:lang="en">Chord</rdfs:label>
     </owl:Class>
     
 
@@ -846,18 +822,6 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
         <rdfs:comment xml:lang="en">Format of files e.g. .jams, .doc, .xml</rdfs:comment>
         <rdfs:label xml:lang="en">Format</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/polifonia/ontology/jams/HarteChord -->
-
-    <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/HarteChord">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/polifonia/ontology/jams/Chord"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/RomanChord"/>
-        <rdfs:comment xml:lang="en">A Musical Chord annotated according to the Harte Notation.</rdfs:comment>
-        <rdfs:label xml:lang="en">Harte Chord</rdfs:label>
-        <rdfs:seeAlso rdf:resource="https://ismir2005.ismir.net/proceedings/1080.pdf"/>
     </owl:Class>
     
 
@@ -1246,22 +1210,19 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
     
 
 
-    <!-- http://w3id.org/polifonia/ontology/jams/RomanChord -->
+    <!-- https://w3id.org/polifonia/ontology/music-representation/MusicContent -->
 
-    <owl:Class rdf:about="http://w3id.org/polifonia/ontology/jams/RomanChord">
-        <owl:equivalentClass rdf:resource="http://w3id.org/polifonia/ontology/roman-chord/Chord"/>
-        <rdfs:subClassOf rdf:resource="http://w3id.org/polifonia/ontology/jams/Chord"/>
-        <rdfs:comment xml:lang="en">A Musical Chord annotated according to the Roman Numeral Notation, as a result of a Roman numeral analysis.</rdfs:comment>
-        <rdfs:label xml:lang="en">Roman Chord</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/polifonia/ontology/roman-chord/Chord -->
-
-    <owl:Class rdf:about="http://w3id.org/polifonia/ontology/roman-chord/Chord">
-        <rdfs:label xml:lang="en">Roman Chord</rdfs:label>
-    </owl:Class>
+    <rdf:Description rdf:about="https://w3id.org/polifonia/ontology/music-representation/MusicContent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://w3id.org/polifonia/ontology/music-meta/AbstractScore"/>
+                    <rdf:Description rdf:about="https://w3id.org/polifonia/ontology/music-meta/Recording"/>
+                    <rdf:Description rdf:about="https://w3id.org/polifonia/ontology/music-meta/Score"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </rdf:Description>
     
 
 
