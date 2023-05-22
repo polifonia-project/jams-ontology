@@ -1,10 +1,35 @@
 # JAMS Ontology
 
-The JAMS ontology module of the [Polifonia ontology network](https://github.com/polifonia-project/ontology-network) provides a comprehensive schema to describe JAMS files and their annotations.
+[![DOI](https://zenodo.org/badge/372536364.svg)](https://zenodo.org/badge/latestdoi/372536364)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-The complete documentation of the ontology can be found at [https://polifonia-project.github.io/jams-ontology/](https://polifonia-project.github.io/jams-ontology/).
+> 🔗 Ontology URI: [https://w3id.org/polifonia/ontology/jams/](https://w3id.org/polifonia/ontology/jams/)
+>
+> 📑 Ontology Documentation: [https://polifonia-project.github.io/jams-ontology/](https://polifonia-project.github.io/jams-ontology/)
 
-## Competency questions addressed by this ontology module
+The JAMS ontology mimics the structure of a JAMS (JSON Annotated Music Specification for Reproducible MIR Research) document.
+It semantically describes and connects all the elements of the JAMS specification (Annotatio, Observation, etc.),  including the music metadata and the annotation contents using the [Music Meta](https://github.com/polifonia-project/music-meta-ontology) and [Music Representation](https://github.com/polifonia-project/music-representation-ontology) modules, respectively.
+
+JAMS is a JSON-based music annotation format whioch aims to provide a simple, structured, and sustainable approach to representing rich information in a human-readable, language agnostic format.
+JAMS is not only a formal scheme, but also a set of software tools that has been implemented to interact with this scheme. The annotation and software specifications can be found in the [official documentation](https://jams.readthedocs.io/en/stable/).
+
+<img width="809" alt="jams-ontology" src="assets/jams-all.png">
+
+### JAMS Annotation
+
+The model describes the metadata of the music piece (box `A`), by reusing the [Music Meta](https://github.com/polifonia-project/music-meta-ontology) and [Music Representation](https://github.com/polifonia-project/music-representation-ontology) modules of PON. 
+Moreover, music annotations are described (i.e. the output of a human expert or computational process aimed at identifying music elements, such as chords), together with information about the annotation process and the provenance of such annotations (box `B`).
+
+<img width="809" alt="jams-ontology" src="assets/jams-annotation.png">
+
+### JAMS Observation
+
+For each Annotation, the contained Observation are described. 
+The `C` box highlights how temporal information is modelled. 
+
+<img width="809" alt="jams-ontology" src="assets/jams-observations.png">
+
+## Competency questions addressed
 
 | **ID**   | **Competency question**                                                                                            |
 | -------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -24,51 +49,28 @@ The complete documentation of the ontology can be found at [https://polifonia-pr
 
 ## Imported ontologies
 
-### Imported from the Polifonia Ontology Network
+### Direct imports
+- [JAMS Onotlogy](https://w3id.org/polifonia/ontology/jams)
 
-- [Core Module](https://github.com/polifonia-project/core-ontology/)
-- [Musical Composition Module](https://github.com/polifonia-project/musical-composition-ontology/)
-- [Musical Features Module](https://github.com/polifonia-project/musical-features-ontology/)
-- [Musical Performance](https://github.com/polifonia-project/musical-performance-ontology/)
-- [Roman Chord](https://github.com/polifonia-project/roman-chord-ontology/)
+### Indirect imports
+- [Core Onotlogy](https://w3id.org/polifonia/ontology/core)
+- [Musi Meta Onotlogy](https://w3id.org/polifonia/ontology/music-meta)
+- [Music Representation Onotlogy](https://w3id.org/polifonia/ontology/music-representation)
+- [Music Projection Onotlogy](https://w3id.org/polifonia/ontology/music-projection)
 
-### External Imports
+## Aligned ontologies
+- [Chord Ontology](https://motools.sourceforge.net/chord_draft_1/chord.html)
 
-- [Chord Ontology](http://motools.sourceforge.net/chord_draft_1/chord.html)
+## Datasets
+The following datasets reuse the JAMS Ontology:
+- [ChoCo Knowledge Graph](https://polifonia.disi.unibo.it/choco/sparql) (~30M triples)
 
-## Ontology Description
-
-This ontology makes it possible to describe structured annotations from a JAMS file, as described in:
-
-```
-Eric J. Humphrey, Justin Salamon, Oriol Nieto, Jon Forsyth, Rachel M. Bittner, and Juan P. Bello,
-"JAMS: A JSON Annotated Music Specification for Reproducible MIR Research",
-Proceedings of the 15th International Conference on Music Information Retrieval, 2014.
-```
-
-JAMS is a JSON-based music annotation format whioch aims to provide a simple, structured, and sustainable approach to representing rich information in a human-readable, language agnostic format.
-JAMS is not only a formal scheme, but also a set of software tools that has been implemented to interact with this scheme. The annotation and software specifications can be found in the [official documentation](https://jams.readthedocs.io/en/stable/).
-
-However, the objective of this ontology module is not only to recreate the structure of a JAMS file in an RDF serialisation. Instead, the aim of this module of the Polifonia Ontology Network is to enrich the JAMS model with new information that is semantically consistent.
-
-### JAMS Annotation
-
-![jams-annotation](./assets/jams-annotation.png)
-
-### JAMS Observation
-
-The JAMS Ontology allows different types of JAMS Observation to be modelled.
-For the sake of clarity, two different types are shown here in separate diagrams.
-
-![jams-observations](./assets/jams-observations.png)
-
-## Bibliography
-
-1. Eric J. Humphrey, Justin Salamon, Oriol Nieto, Jon Forsyth, Rachel M. Bittner, and Juan P. Bello,
-   "JAMS: A JSON Annotated Music Specification for Reproducible MIR Research",
-   Proceedings of the 15th International Conference on Music Information Retrieval, 2014.
-2. Harte, Christopher & Sandler, Mark & Abdallah, Samer & Gómez, Emilia. (2005). Symbolic Representation of Musical Chords: A Proposed Syntax for Text Annotations.. 66-71.
-3. Raimond, Yves & Abdallah, Samer & Sandler, Mark & Giasson, Frederick. (2007). The Music Ontology. Proceedings of the 8th International Conference on Music Information Retrieval, ISMIR 2007.
+## Statistics
+We report the following statistics for the Music Annotation module: 
+- number of classes: 208 
+- number of object properties: 207
+- number of datatype properties: 27
+- number of logical axioms: 1237
 
 ## License
 
@@ -77,3 +79,12 @@ This work is licensed under a
 
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
+
+
+## Bibliography
+
+1. Eric J. Humphrey, Justin Salamon, Oriol Nieto, Jon Forsyth, Rachel M. Bittner, and Juan P. Bello,
+   "JAMS: A JSON Annotated Music Specification for Reproducible MIR Research",
+   Proceedings of the 15th International Conference on Music Information Retrieval, 2014.
+2. Harte, Christopher & Sandler, Mark & Abdallah, Samer & Gómez, Emilia. (2005). Symbolic Representation of Musical Chords: A Proposed Syntax for Text Annotations.. 66-71.
+3. Raimond, Yves & Abdallah, Samer & Sandler, Mark & Giasson, Frederick. (2007). The Music Ontology. Proceedings of the 8th International Conference on Music Information Retrieval, ISMIR 2007.
