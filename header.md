@@ -1,8 +1,8 @@
 ---
-component-id: https://w3id.org/polifonia/ontology/source/
+component-id: https://w3id.org/polifonia/ontology/jams/
 type: Ontology
-name: Source ontology
-description: Source represents various sources of music-related information
+name: JAMS ontology
+description: The JAMS ontology replicates semantically the structure of a JAMS Annotation file
 image: diagrams/source-module.png
 work-package:
 - WP2
