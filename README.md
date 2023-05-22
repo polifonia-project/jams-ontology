@@ -47,6 +47,31 @@ The `C` box highlights how temporal information is modelled.
 | **CQ12** | What is the confidence of an observation?                                                                          |
 | **CQ13** | What are the chords of a composition/performance?                                                                  |
 
+## SPARQL queries addressed
+
+- _Which are the first 10 chords of "Michelle" by The Beatles, ordered by onset?_
+
+```sparql
+PREFIX jams: <http://w3id.org/polifonia/ontology/jams/>
+PREFIX mp:  <http://w3id.org/polifonia/ontology/musical-performance/>
+PREFIX mc:  <http://w3id.org/polifonia/ontology/musical-composition/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?observationValue ?startTime ?startTimeType ?duration ?durationType
+WHERE {
+  ?recording a mp:Recording ;
+    mc:hasTitle "Michelle" ;
+    jams:hasJAMSAnnotation ?annotation .
+  ?annotation jams:includesObservation ?observation ;
+    jams:hasAnnotationType "chord" .
+  ?observation rdfs:label ?observationValue ;
+    jams:hasMusicTimeInterval [jams:hasMusicTimeDuration [ jams:hasValue ?duration ; jams:hasValueType ?durationType ] ;
+      jams:hasMusicTimeStartIndex [ jams:hasMusicTimeIndexComponent [ jams:hasValue ?startTime ; jams:hasValueType ?startTimeType  ]]] .
+} 
+ORDER BY (?startTime)
+LIMIT 10
+```
+
 ## Imported ontologies
 
 ### Direct imports
