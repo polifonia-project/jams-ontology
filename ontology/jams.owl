@@ -1135,7 +1135,7 @@ In particular, this ontology focuses on the Chord Annotations contained in the J
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeInterval"/>
         <owl:disjointWith rdf:resource="http://w3id.org/polifonia/ontology/jams/MusicTimeValueType"/>
         <rdfs:comment xml:lang="en">A component of a MusicTimeIndex, which defines the value of the component and its ValueType. Multiple MusicTimeIndexComponents are required for representing points on a sequence that requires more than one value to be defined. For example, a symbolic notation usually needs beats and measures to define a point on a sequence: in this case there will be a MusicTimeIndexComponents defining the measure position and another MusicTimeIndexComponents for defining the beat position.</rdfs:comment>
-        <rdfs:label xml:lang="en">Music Time Index Comonent</rdfs:label>
+        <rdfs:label xml:lang="en">Music Time Index Component</rdfs:label>
     </owl:Class>
     
 
