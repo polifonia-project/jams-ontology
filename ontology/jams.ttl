@@ -1,0 +1,1027 @@
+@prefix : <http://w3id.org/polifonia/ontology/jams/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix mm: <https://w3id.org/polifonia/ontology/music-meta/> .
+@prefix mp: <https://w3id.org/polifonia/ontology/music-projection/> .
+@prefix mr: <https://w3id.org/polifonia/ontology/music-representation/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <https://w3id.org/polifonia/ontology/core/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix polifonia-res: <http://w3id.org/polifonia/resource/> .
+@prefix cpannotationschema: <http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#> .
+@base <http://w3id.org/polifonia/ontology/jams/> .
+
+<http://w3id.org/polifonia/ontology/jams/> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://w3id.org/polifonia/ontology/jams/1.0/> ;
+                                            owl:imports mp: ,
+                                                        mr: ;
+                                            dc:creator "Albert Merono Penuela"@en ,
+                                                       "Andrea Poltronieri"@en ,
+                                                       "Jacpo de Berardinis" ,
+                                                       "Valentina Presutti"@en ;
+                                            dc:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+                                            terms:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+                                            rdfs:comment """An ontology for modelling a JAMS file containing different types of musical annotations. 
+In particular, this ontology focuses on the Chord Annotations contained in the JAMS file and their attributes."""@en ;
+                                            rdfs:label "JAMS Ontology"@en ;
+                                            owl:versionInfo "1.0"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/license
+dc:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/contributor
+terms:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+terms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+terms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+terms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+terms:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotationType
+:hasAnnotationType rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isAnnotationTypeOf ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :JAMSAnnotation ;
+                   rdfs:range :AnnotationType ;
+                   owl:propertyDisjointWith :hasAnnotator ,
+                                            :hasAnnotatorType ,
+                                            :hasChordSubject ,
+                                            :hasFormat ,
+                                            :hasJAMSAnnotation ,
+                                            :hasMusicTimeDuration ,
+                                            :hasMusicTimeIndex ,
+                                            :hasMusicTimeIndexComponent ,
+                                            :hasMusicTimeInterval ,
+                                            :hasSubject ,
+                                            :hasValueType ,
+                                            :includesObservation ,
+                                            :isAnnotationTypeOf ,
+                                            :isAnnotatorOf ,
+                                            :isAnnotatorTypeOf ,
+                                            :isMusicTimeDurationOf ,
+                                            :isMusicTimeIndexComponentOf ,
+                                            :isMusicTimeIndexOf ,
+                                            :isMusicTimeIntervalOf ,
+                                            :isObservationOf ,
+                                            :isValueTypeOf ;
+                   rdfs:comment "Links an Annotation to its AnnotationType, defining the content of the annotations (e.g. chords, key, patterns, etc.):"@en ;
+                   rdfs:label "Has Annotation Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotator
+:hasAnnotator rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isAnnotatorOf ;
+              rdfs:domain :JAMSAnnotation ;
+              owl:propertyDisjointWith :hasAnnotatorType ,
+                                       :hasJAMSAnnotation ,
+                                       :hasMusicTimeDuration ,
+                                       :hasMusicTimeIndex ,
+                                       :hasMusicTimeIndexComponent ,
+                                       :hasMusicTimeInterval ,
+                                       :hasSubject ,
+                                       :hasValueType ,
+                                       :includesObservation ,
+                                       :isAnnotatorOf ,
+                                       :isAnnotatorTypeOf ,
+                                       :isJAMSAnnotationOf ,
+                                       :isMusicTimeDurationOf ,
+                                       :isMusicTimeIndexComponentOf ,
+                                       :isMusicTimeIndexOf ,
+                                       :isObservationOf ,
+                                       :isValueTypeOf ;
+              rdfs:comment "Links a JAMS annotation to the Annotator the annotated the JAMS."@en ;
+              rdfs:label "Has Annotator"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasAnnotatorType
+:hasAnnotatorType rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :isAnnotatorTypeOf ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:range :AnnotatorType ;
+                  owl:propertyDisjointWith :hasChordSubject ,
+                                           :hasFormat ,
+                                           :hasJAMSAnnotation ,
+                                           :hasMusicTimeDuration ,
+                                           :hasMusicTimeIndex ,
+                                           :hasMusicTimeIndexComponent ,
+                                           :hasMusicTimeInterval ,
+                                           :hasSubject ,
+                                           :hasValueType ,
+                                           :includesObservation ,
+                                           :isAnnotationTypeOf ,
+                                           :isAnnotatorOf ,
+                                           :isAnnotatorTypeOf ,
+                                           :isJAMSAnnotationOf ,
+                                           :isMusicTimeDurationOf ,
+                                           :isMusicTimeIndexComponentOf ,
+                                           :isMusicTimeIndexOf ,
+                                           :isMusicTimeIntervalOf ,
+                                           :isObservationOf ,
+                                           :isValueTypeOf ;
+                  rdfs:comment "Links the Annotator class to its Annotator Type, describing how the JAMS annotations were generated."@en ;
+                  rdfs:label "Has Annotator Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasChordSubject
+:hasChordSubject rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasSubject ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :JAMSObservation ;
+                 rdfs:range mp:Chord ;
+                 owl:propertyDisjointWith :hasFormat ,
+                                          :hasJAMSAnnotation ,
+                                          :hasMusicTimeDuration ,
+                                          :hasMusicTimeIndex ,
+                                          :hasMusicTimeIndexComponent ,
+                                          :hasMusicTimeInterval ,
+                                          :hasValueType ,
+                                          :includesObservation ,
+                                          :isAnnotationTypeOf ,
+                                          :isAnnotatorOf ,
+                                          :isAnnotatorTypeOf ,
+                                          :isMusicTimeDurationOf ,
+                                          :isMusicTimeIndexComponentOf ,
+                                          :isMusicTimeIndexOf ,
+                                          :isMusicTimeIntervalOf ,
+                                          :isObservationOf ,
+                                          :isValueTypeOf ;
+                 rdfs:comment "Links a JAMSObservation to the observation value, in the case the value is a musical chord."@en ;
+                 rdfs:label "Has Chord Subject"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasEndMusicTimeIndex
+:hasEndMusicTimeIndex rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasMusicTimeIndex ,
+                                         [ owl:inverseOf :isMusicTimeIndexOf
+                                         ] ;
+                      rdfs:domain :MusicTimeInterval ;
+                      rdfs:range :MusicTimeIndex ;
+                      rdfs:comment "Subproperty of jasMusicTimeIndex. It links a MusicTimeInterval to its MusicTimeIndex, defining the end point of validity of an observation/annotation time interval."@en ;
+                      rdfs:label "Has End Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasFormat
+:hasFormat rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain :File ;
+           rdfs:range :Format ;
+           owl:propertyDisjointWith :hasJAMSAnnotation ,
+                                    :hasMusicTimeDuration ,
+                                    :hasMusicTimeIndex ,
+                                    :hasMusicTimeIndexComponent ,
+                                    :hasMusicTimeInterval ,
+                                    :hasSubject ,
+                                    :hasValueType ,
+                                    :includesObservation ,
+                                    :isAnnotationTypeOf ,
+                                    :isAnnotatorOf ,
+                                    :isJAMSAnnotationOf ,
+                                    :isMusicTimeDurationOf ,
+                                    :isMusicTimeIndexComponentOf ,
+                                    :isMusicTimeIndexOf ,
+                                    :isObservationOf ,
+                                    :isValueTypeOf ;
+           rdfs:comment "Links a File to its Format, defining the type of the file."@en ;
+           rdfs:label "Has Format"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasJAMSAnnotation
+:hasJAMSAnnotation rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isJAMSAnnotationOf ;
+                   rdf:type owl:InverseFunctionalProperty ;
+                   rdfs:domain mr:MusicContent ;
+                   rdfs:range :JAMSAnnotation ;
+                   owl:propertyDisjointWith :hasMusicTimeDuration ,
+                                            :hasMusicTimeIndex ,
+                                            :hasMusicTimeIndexComponent ,
+                                            :hasMusicTimeInterval ,
+                                            :hasSubject ,
+                                            :hasValueType ,
+                                            :includesObservation ,
+                                            :isAnnotationTypeOf ,
+                                            :isAnnotatorOf ,
+                                            :isAnnotatorTypeOf ,
+                                            :isJAMSAnnotationOf ,
+                                            :isMusicTimeDurationOf ,
+                                            :isMusicTimeIndexComponentOf ,
+                                            :isMusicTimeIntervalOf ,
+                                            :isObservationOf ,
+                                            :isValueTypeOf ;
+                   rdfs:comment "Relates a Score or a Recording to the JAMS annotation describing the track."@en ;
+                   rdfs:label "Has JAMS Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeDuration
+:hasMusicTimeDuration rdf:type owl:ObjectProperty ;
+                      owl:inverseOf :isMusicTimeDurationOf ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain :MusicTimeInterval ;
+                      rdfs:range :MusicTimeDuration ;
+                      owl:propertyDisjointWith :hasMusicTimeIndex ,
+                                               :hasMusicTimeIndexComponent ,
+                                               :hasMusicTimeInterval ,
+                                               :hasSubject ,
+                                               :hasValueType ,
+                                               :includesObservation ,
+                                               :isAnnotationTypeOf ,
+                                               :isAnnotatorOf ,
+                                               :isAnnotatorTypeOf ,
+                                               :isJAMSAnnotationOf ,
+                                               :isMusicTimeDurationOf ,
+                                               :isMusicTimeIndexComponentOf ,
+                                               :isMusicTimeIndexOf ,
+                                               :isMusicTimeIntervalOf ,
+                                               :isObservationOf ,
+                                               :isValueTypeOf ;
+                      rdfs:comment "Defines the relationship between a MusicTimeInterval and a MusicTimeDuration, defining the time duration of the interval."@en ;
+                      rdfs:label "Has Music Time Duration"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndex
+:hasMusicTimeIndex rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isMusicTimeIndexOf ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :MusicTimeInterval ;
+                   rdfs:range :MusicTimeIndex ;
+                   owl:propertyDisjointWith :hasMusicTimeIndexComponent ,
+                                            :hasMusicTimeInterval ,
+                                            :hasSubject ,
+                                            :hasValueType ,
+                                            :includesObservation ,
+                                            :isAnnotationTypeOf ,
+                                            :isAnnotatorOf ,
+                                            :isAnnotatorTypeOf ,
+                                            :isMusicTimeDurationOf ,
+                                            :isMusicTimeIndexComponentOf ,
+                                            :isMusicTimeIndexOf ,
+                                            :isObservationOf ,
+                                            :isValueTypeOf ;
+                   rdfs:comment "Links a MusicTimeInterval to its MusicTimeIndex, which defines a point on the annotation/observation time sequence. It has two subclasses: hasEndMusicTimeIndex and hasStartMusicTimeIndex."@en ;
+                   rdfs:label "Has Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeIndexComponent
+:hasMusicTimeIndexComponent rdf:type owl:ObjectProperty ;
+                            owl:inverseOf :isMusicTimeIndexComponentOf ;
+                            rdf:type owl:InverseFunctionalProperty ;
+                            rdfs:domain :MusicTimeIndex ;
+                            rdfs:range :MusicTimeIndexComponent ;
+                            owl:propertyDisjointWith :hasMusicTimeInterval ,
+                                                     :hasSubject ,
+                                                     :hasValueType ,
+                                                     :includesObservation ,
+                                                     :isAnnotationTypeOf ,
+                                                     :isAnnotatorOf ,
+                                                     :isAnnotatorTypeOf ,
+                                                     :isMusicTimeDurationOf ,
+                                                     :isMusicTimeIndexComponentOf ,
+                                                     :isMusicTimeIndexOf ,
+                                                     :isMusicTimeIntervalOf ,
+                                                     :isObservationOf ,
+                                                     :isValueTypeOf ;
+                            rdfs:comment "Links a MusicTimeIndex to its/theirs MusicTimeIndexComponent, which represent the element(s) needed to describe a point on the timeline of the annotation/observation."@en ;
+                            rdfs:label "Has Music Time Index Component"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasMusicTimeInterval
+:hasMusicTimeInterval rdf:type owl:ObjectProperty ;
+                      owl:inverseOf :isMusicTimeIntervalOf ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( :JAMSAnnotation
+                                                  :JAMSObservation
+                                                )
+                                  ] ;
+                      rdfs:range :MusicTimeInterval ;
+                      owl:propertyDisjointWith :hasSubject ,
+                                               :hasValueType ,
+                                               :includesObservation ,
+                                               :isAnnotationTypeOf ,
+                                               :isAnnotatorOf ,
+                                               :isAnnotatorTypeOf ,
+                                               :isJAMSAnnotationOf ,
+                                               :isMusicTimeDurationOf ,
+                                               :isMusicTimeIndexComponentOf ,
+                                               :isMusicTimeIndexOf ,
+                                               :isMusicTimeIntervalOf ,
+                                               :isObservationOf ,
+                                               :isValueTypeOf ;
+                      rdfs:comment "Links a JAMSAnnotation or a JAMSObservation to its timing information, representaed by the class MusicTimeInterval."@en ;
+                      rdfs:label "Has Music Time Interval"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasStartMusicTimeIndex
+:hasStartMusicTimeIndex rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasMusicTimeIndex ,
+                                           [ owl:inverseOf :isMusicTimeIndexOf
+                                           ] ;
+                        rdfs:domain :MusicTimeInterval ;
+                        rdfs:range :MusicTimeIndex ;
+                        rdfs:comment "Subproperty of jasMusicTimeIndex. It links a MusicTimeInterval to its MusicTimeIndex, defining the start point of validity of an observation/annotation time interval."@en ;
+                        rdfs:label "Has Start Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasSubject
+:hasSubject rdf:type owl:ObjectProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :JAMSObservation ;
+            rdfs:range mr:MusicProjection ;
+            owl:propertyDisjointWith :hasValueType ,
+                                     :isAnnotatorOf ,
+                                     :isAnnotatorTypeOf ,
+                                     :isJAMSAnnotationOf ,
+                                     :isMusicTimeDurationOf ,
+                                     :isMusicTimeIndexComponentOf ,
+                                     :isMusicTimeIndexOf ,
+                                     :isMusicTimeIntervalOf ,
+                                     :isObservationOf ,
+                                     :isValueTypeOf ;
+            rdfs:comment "Defines the subjecyt of a JAMSObservation, describing the type of value contained in the observation, described by the mf:MusicalFeature class."@en ;
+            rdfs:label "Has Subject"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasValueType
+:hasValueType rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isValueTypeOf ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :MusicTimeDuration
+                                          :MusicTimeIndexComponent
+                                        )
+                          ] ;
+              rdfs:range :MusicTimeValueType ;
+              owl:propertyDisjointWith :includesObservation ,
+                                       :isAnnotationTypeOf ,
+                                       :isJAMSAnnotationOf ,
+                                       :isMusicTimeDurationOf ,
+                                       :isMusicTimeIndexComponentOf ,
+                                       :isMusicTimeIndexOf ,
+                                       :isMusicTimeIntervalOf ,
+                                       :isObservationOf ,
+                                       :isValueTypeOf ;
+              rdfs:comment "Links either a MusicTimeIndexComponent or a MusicTimeDuration to a MusicTimeValueType, defining the format in which the time information is expressed."@en ;
+              rdfs:label "Has Music Time Value Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/includesObservation
+:includesObservation rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :isObservationOf ;
+                     rdf:type owl:InverseFunctionalProperty ;
+                     rdfs:domain :JAMSAnnotation ;
+                     rdfs:range :JAMSObservation ;
+                     owl:propertyDisjointWith :isAnnotatorOf ,
+                                              :isAnnotatorTypeOf ,
+                                              :isJAMSAnnotationOf ,
+                                              :isMusicTimeDurationOf ,
+                                              :isMusicTimeIntervalOf ,
+                                              :isObservationOf ;
+                     rdfs:comment "Links a JAMS Annotation to the JAMS Onservation(s) it contains."@en ;
+                     rdfs:label "Includes Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotationTypeOf
+:isAnnotationTypeOf rdf:type owl:ObjectProperty ,
+                             owl:InverseFunctionalProperty ;
+                    rdfs:domain :AnnotationType ;
+                    rdfs:range :JAMSAnnotation ;
+                    owl:propertyDisjointWith :isAnnotatorTypeOf ,
+                                             :isJAMSAnnotationOf ,
+                                             :isMusicTimeDurationOf ,
+                                             :isMusicTimeIndexComponentOf ,
+                                             :isMusicTimeIntervalOf ,
+                                             :isObservationOf ,
+                                             :isValueTypeOf ;
+                    rdfs:comment "Inverse of hasAnnotationType. Links an AnnotationType to a JAMSAnnotation."@en ;
+                    rdfs:label "Is Annotation Type Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotatorOf
+:isAnnotatorOf rdf:type owl:ObjectProperty ;
+               rdfs:range :JAMSAnnotation ;
+               owl:propertyDisjointWith :isAnnotatorTypeOf ,
+                                        :isJAMSAnnotationOf ,
+                                        :isMusicTimeDurationOf ,
+                                        :isMusicTimeIntervalOf ,
+                                        :isObservationOf ,
+                                        :isValueTypeOf ;
+               rdfs:comment "Inverse of hasAnnotator. Links the Annotator to the JAMS Annotation annotated by such annotator."@en ;
+               rdfs:label "Is Annotator Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isAnnotatorTypeOf
+:isAnnotatorTypeOf rdf:type owl:ObjectProperty ,
+                            owl:InverseFunctionalProperty ;
+                   rdfs:domain :AnnotatorType ;
+                   owl:propertyDisjointWith :isJAMSAnnotationOf ,
+                                            :isMusicTimeDurationOf ,
+                                            :isMusicTimeIntervalOf ,
+                                            :isObservationOf ;
+                   rdfs:comment "Inverse of hasAnnotatorType. Links the Annotator Type to the Annotator class."@en ;
+                   rdfs:label "Is Annotator Type Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isJAMSAnnotationOf
+:isJAMSAnnotationOf rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:domain :JAMSAnnotation ;
+                    owl:propertyDisjointWith :isMusicTimeDurationOf ,
+                                             :isMusicTimeIndexComponentOf ,
+                                             :isMusicTimeIntervalOf ,
+                                             :isObservationOf ;
+                    rdfs:comment "Inverse of hasJAMSAnnotation. It links the JAMS Annotation to either a Recording o a Score."@en ;
+                    rdfs:label "Is JAMS Annotation Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isMusicTimeDurationOf
+:isMusicTimeDurationOf rdf:type owl:ObjectProperty ,
+                                owl:InverseFunctionalProperty ;
+                       rdfs:domain :MusicTimeDuration ;
+                       rdfs:range :MusicTimeInterval ;
+                       owl:propertyDisjointWith :isMusicTimeIndexComponentOf ,
+                                                :isMusicTimeIndexOf ,
+                                                :isMusicTimeIntervalOf ,
+                                                :isObservationOf ,
+                                                :isValueTypeOf ;
+                       rdfs:comment "Inverse of hasMusicTimeDuration. Links a MusicTimeDuration to the MusicTimeInterval it belongs to."@en ;
+                       rdfs:label "Is Music Time Duration Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexComponentOf
+:isMusicTimeIndexComponentOf rdf:type owl:ObjectProperty ,
+                                      owl:FunctionalProperty ;
+                             rdfs:domain :MusicTimeIndexComponent ;
+                             rdfs:range :MusicTimeIndex ;
+                             owl:propertyDisjointWith :isMusicTimeIndexOf ,
+                                                      :isMusicTimeIntervalOf ,
+                                                      :isObservationOf ,
+                                                      :isValueTypeOf ;
+                             rdfs:comment "Inverse of hasMusicTimeIndexComponent. Defines the relation between a MusicTimeIndexComponent and the MusicITimeIndex it belongs to."@en ;
+                             rdfs:label "Is Music Time Index Component Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isMusicTimeIndexOf
+:isMusicTimeIndexOf rdf:type owl:ObjectProperty ,
+                             owl:InverseFunctionalProperty ;
+                    rdfs:domain :MusicTimeIndex ;
+                    rdfs:range :MusicTimeInterval ;
+                    owl:propertyDisjointWith :isMusicTimeIntervalOf ,
+                                             :isObservationOf ,
+                                             :isValueTypeOf ;
+                    rdfs:comment "Inverse of hasMusicTimeIndex. It links a MusicTimeIndex with the MusicTimeInterval it belongs to."@en ;
+                    rdfs:label "Is Music Time Index Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isMusicTimeIntervalOf
+:isMusicTimeIntervalOf rdf:type owl:ObjectProperty ,
+                                owl:InverseFunctionalProperty ;
+                       rdfs:domain :MusicTimeInterval ;
+                       rdfs:range [ rdf:type owl:Class ;
+                                    owl:unionOf ( :JAMSAnnotation
+                                                  :JAMSObservation
+                                                )
+                                  ] ;
+                       owl:propertyDisjointWith :isObservationOf ,
+                                                :isValueTypeOf ;
+                       rdfs:comment "Inverse of hasMusicTimeInterval. It links a MusicTimeInterval to a JAMSAnnotation or to a JAMSObservation."@en ;
+                       rdfs:label "Is Music Time Interval Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isObservationOf
+:isObservationOf rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :JAMSObservation ;
+                 rdfs:range :JAMSAnnotation ;
+                 owl:propertyDisjointWith :isValueTypeOf ;
+                 rdfs:comment "Inverse of includesObservation. Links a JAMS Observation to the JAMS Annotation to which it belongs."@en ;
+                 rdfs:label "Is Observation Of"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/isValueTypeOf
+:isValueTypeOf rdf:type owl:ObjectProperty ,
+                        owl:InverseFunctionalProperty ;
+               rdfs:domain :MusicTimeValueType ;
+               rdfs:range [ rdf:type owl:Class ;
+                            owl:unionOf ( :MusicTimeDuration
+                                          :MusicTimeIndexComponent
+                                        )
+                          ] ;
+               rdfs:comment "Inverse of hasMusicTimeValueType. Links a MusicValueType either to a MusicTimeIndexComonent or to a MusicTimeDuration."@en ;
+               rdfs:label "Is Music Time Value Type Of"@en .
+
+
+###  http://www.w3.org/ns/prov#WasDerivedFrom
+prov:WasDerivedFrom rdf:type owl:ObjectProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( :JAMSAnnotation
+                                                :JAMSFile
+                                              )
+                                ] ;
+                    rdfs:label "Was Derived From"@en .
+
+
+###  http://www.w3.org/ns/prov#wasMemberOf
+prov:wasMemberOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain :JAMSFile ;
+                 rdfs:label "Was Member Of"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://w3id.org/polifonia/ontology/jams/hasConfidence
+:hasConfidence rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :JAMSObservation ;
+               rdfs:range xsd:float ;
+               owl:propertyDisjointWith :hasName ,
+                                        :hasValue ;
+               rdfs:comment "The confidence of an annotation/observation, as described by the JAMS documentation, hence expressed with a floating number from 0 to 1."@en ;
+               rdfs:label "Has Confidence"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasName
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:range xsd:string ;
+         owl:propertyDisjointWith :hasValue ;
+         rdfs:comment "The name of an annotator, which can be either human, artificial (e.g. the name of a software) or describing a group of people (e.g. the name of a crowdsourcing service/event)."@en ;
+         rdfs:label "Has Name"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/hasValue
+:hasValue rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :MusicTimeDuration
+                                      :MusicTimeIndexComponent
+                                    )
+                      ] ;
+          rdfs:range rdfs:Literal ;
+          rdfs:comment "Defines the time value of either a MusicTimeIndexComponent or a MusicTimeDuration."@en ;
+          rdfs:label "Has Value"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://w3id.org/polifonia/ontology/jams/AnnotationType
+:AnnotationType rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isAnnotationTypeOf ;
+                                  owl:allValuesFrom :JAMSAnnotation
+                                ] ;
+                owl:disjointWith :AnnotatorType ,
+                                 :File ,
+                                 :Format ,
+                                 :JAMSAnnotation ,
+                                 :JAMSObservation ,
+                                 :MusicTimeDuration ,
+                                 :MusicTimeIndex ,
+                                 :MusicTimeIndexComponent ,
+                                 :MusicTimeInterval ,
+                                 :MusicTimeValueType ;
+                rdfs:label "Annotation Type"@en ,
+                           "The type of the annotation. It maps directly to the annotation's \"namespace\" of a JAMS file."@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/AnnotatorType
+:AnnotatorType rdf:type owl:Class ;
+               owl:disjointWith :File ,
+                                :Format ,
+                                :JAMSAnnotation ,
+                                :JAMSFile ,
+                                :JAMSObservation ,
+                                :MusicTimeDuration ,
+                                :MusicTimeIndex ,
+                                :MusicTimeIndexComponent ,
+                                :MusicTimeInterval ,
+                                :MusicTimeValueType ;
+               rdfs:comment "The type of annotator of a JAMS annotation, whether human or the result of an automatic or crowdsourced annotation."@en ;
+               rdfs:label "Annotator Type"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/File
+:File rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasFormat ;
+                        owl:allValuesFrom :Format
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasFormat ;
+                        owl:hasValue <http://w3id.org/polifonia/resource/Format/jams>
+                      ] ;
+      owl:disjointWith :Format ,
+                       :JAMSAnnotation ,
+                       :JAMSObservation ,
+                       :MusicTimeDuration ,
+                       :MusicTimeIndex ,
+                       :MusicTimeIndexComponent ,
+                       :MusicTimeInterval ,
+                       :MusicTimeValueType ;
+      rdfs:comment "Any type of file"@en ;
+      rdfs:label "File"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/Format
+:Format rdf:type owl:Class ;
+        owl:disjointWith :JAMSAnnotation ,
+                         :JAMSObservation ,
+                         :MusicTimeDuration ,
+                         :MusicTimeIndex ,
+                         :MusicTimeIndexComponent ,
+                         :MusicTimeInterval ,
+                         :MusicTimeValueType ;
+        rdfs:comment "Format of files e.g. .jams, .doc, .xml"@en ;
+        rdfs:label "Format"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAnnotation
+:JAMSAnnotation rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasAnnotationType ;
+                                  owl:allValuesFrom :AnnotationType
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMusicTimeInterval ;
+                                  owl:allValuesFrom :MusicTimeInterval
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :includesObservation ;
+                                  owl:allValuesFrom :JAMSObservation
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prov:WasDerivedFrom ;
+                                  owl:allValuesFrom :JAMSFile
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasAnnotationType ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :AnnotationType
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMusicTimeInterval ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :MusicTimeInterval
+                                ] ;
+                owl:disjointWith :JAMSFile ,
+                                 :JAMSObservation ,
+                                 :MusicTimeDuration ,
+                                 :MusicTimeIndex ,
+                                 :MusicTimeIndexComponent ,
+                                 :MusicTimeInterval ;
+                rdfs:comment "A group of observations that share the same type of annotation (e.g. score or audio) and the same syntax with which the agreement is expressed (e.g. Harte or Roman)."@en ;
+                rdfs:label "JAMS Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAudioAnnotation
+:JAMSAudioAnnotation rdf:type owl:Class ;
+                     rdfs:subClassOf :JAMSAnnotation ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :includesObservation ;
+                                       owl:allValuesFrom :JAMSAudioObservation
+                                     ] ;
+                     owl:disjointWith :JAMSScoreAnnotation ;
+                     rdfs:comment "An annotation describing a piece of music annotated on the basis of an audio track."@en ;
+                     rdfs:label "JAMS Audio Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSAudioObservation
+:JAMSAudioObservation rdf:type owl:Class ;
+                      rdfs:subClassOf :JAMSObservation ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:allValuesFrom :JAMSAudioAnnotation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :JAMSAudioAnnotation
+                                      ] ;
+                      owl:disjointWith :JAMSScoreObservation ;
+                      rdfs:comment "A observation defined on the audio signal, i.e. described from a temporal point of view using real time, usually expressed in seconds."@en ;
+                      rdfs:label "JAMS Audio Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSFile
+:JAMSFile rdf:type owl:Class ;
+          rdfs:subClassOf :File ;
+          owl:disjointWith :JAMSObservation ;
+          rdfs:comment "A file in JAMS format (with extension .jams, a serialisation of JSON), containing musical annotations structured according to JAMS specifications."@en ;
+          rdfs:label "The class of files encoded in JAMS format (JAMS is a datamodel serialised in a json-specific format)."@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSObservation
+:JAMSObservation rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasMusicTimeInterval ;
+                                   owl:allValuesFrom :MusicTimeInterval
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :isObservationOf ;
+                                   owl:allValuesFrom :JAMSAnnotation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasMusicTimeInterval ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :MusicTimeInterval
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :isObservationOf ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :JAMSAnnotation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasConfidence ;
+                                   owl:allValuesFrom xsd:float
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasConfidence ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onDataRange xsd:float
+                                 ] ;
+                 owl:disjointWith :MusicTimeDuration ,
+                                  :MusicTimeIndex ,
+                                  :MusicTimeIndexComponent ,
+                                  :MusicTimeInterval ,
+                                  :MusicTimeValueType ;
+                 rdfs:comment "An observation of the annotation, understood as an event defined in time (both real and symbolic) that has a value (e.g. a specific agreement) and a precise duration."@en ;
+                 rdfs:label "JAMS Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSScoreAnnotation
+:JAMSScoreAnnotation rdf:type owl:Class ;
+                     rdfs:subClassOf :JAMSAnnotation ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :includesObservation ;
+                                       owl:allValuesFrom :JAMSScoreObservation
+                                     ] ;
+                     rdfs:comment "An annotation describing a piece of music annotated on the basis of a music score."@en ;
+                     rdfs:label "JAMS Score Annotation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/JAMSScoreObservation
+:JAMSScoreObservation rdf:type owl:Class ;
+                      rdfs:subClassOf :JAMSObservation ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:allValuesFrom :JAMSScoreAnnotation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :isObservationOf ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :JAMSScoreAnnotation
+                                      ] ;
+                      rdfs:comment "A observation defined on a symbolic notation or on a music score, i.e. described from a temporal point of view using references to symbolic elements defined by the notation itself."@en ;
+                      rdfs:label "JAMS Score Observation"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeDuration
+:MusicTimeDuration rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasValueType ;
+                                     owl:allValuesFrom :MusicTimeValueType
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :isMusicTimeDurationOf ;
+                                     owl:allValuesFrom :MusicTimeInterval
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasValueType ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :MusicTimeValueType
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasValue ;
+                                     owl:someValuesFrom rdfs:Literal
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasValue ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ;
+                   owl:disjointWith :MusicTimeIndex ,
+                                    :MusicTimeIndexComponent ,
+                                    :MusicTimeInterval ,
+                                    :MusicTimeValueType ;
+                   rdfs:comment "The duration of a MusicTimeInterval, which defines a value and a ValueType."@en ;
+                   rdfs:label "Music Time Duration"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeIndex
+:MusicTimeIndex rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMusicTimeIndexComponent ;
+                                  owl:allValuesFrom :MusicTimeIndexComponent
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isMusicTimeIndexOf ;
+                                  owl:allValuesFrom :MusicTimeInterval
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMusicTimeIndexComponent ;
+                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :MusicTimeIndexComponent
+                                ] ;
+                owl:disjointWith :MusicTimeIndexComponent ,
+                                 :MusicTimeInterval ,
+                                 :MusicTimeValueType ;
+                rdfs:comment "An index that defines a point in a musical sequence, whether it is a temporal sequence (expressed in real time) or a symbolic sequence (expressed in symbolic time)."@en ;
+                rdfs:label "Music Time Index"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeIndexComponent
+:MusicTimeIndexComponent rdf:type owl:Class ;
+                         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                           owl:onProperty :hasValueType ;
+                                           owl:allValuesFrom :MusicTimeValueType
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :isMusicTimeIndexComponentOf ;
+                                           owl:allValuesFrom :MusicTimeIndex
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :hasValueType ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :MusicTimeValueType
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :hasValue ;
+                                           owl:someValuesFrom rdfs:Literal
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :hasValue ;
+                                           owl:cardinality "1"^^xsd:nonNegativeInteger
+                                         ] ;
+                         owl:disjointWith :MusicTimeInterval ,
+                                          :MusicTimeValueType ;
+                         rdfs:comment "A component of a MusicTimeIndex, which defines the value of the component and its ValueType. Multiple MusicTimeIndexComponents are required for representing points on a sequence that requires more than one value to be defined. For example, a symbolic notation usually needs beats and measures to define a point on a sequence: in this case there will be a MusicTimeIndexComponents defining the measure position and another MusicTimeIndexComponents for defining the beat position."@en ;
+                         rdfs:label "Music Time Index Comonent"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeInterval
+:MusicTimeInterval rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty :isMusicTimeIntervalOf ;
+                                     owl:someValuesFrom [ rdf:type owl:Class ;
+                                                          owl:unionOf ( :JAMSAnnotation
+                                                                        :JAMSObservation
+                                                                      )
+                                                        ]
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasMusicTimeDuration ;
+                                     owl:allValuesFrom :MusicTimeDuration
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasMusicTimeIndex ;
+                                     owl:allValuesFrom :MusicTimeIndex
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasMusicTimeIndex ;
+                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :MusicTimeIndex
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasMusicTimeDuration ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :MusicTimeDuration
+                                   ] ;
+                   owl:disjointWith :MusicTimeValueType ;
+                   rdfs:comment "The interval in which an Annotation or an Observation takes place. It describe the time frame in which the Annotation/Observation is valid."@en ;
+                   rdfs:label "Music Time Interval"@en .
+
+
+###  http://w3id.org/polifonia/ontology/jams/MusicTimeValueType
+:MusicTimeValueType rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isValueTypeOf ;
+                                      owl:someValuesFrom :MusicTimeDuration
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isValueTypeOf ;
+                                      owl:someValuesFrom :MusicTimeIndexComponent
+                                    ] ;
+                    rdfs:comment "It defines the type of the temporal value being represented, for example seconds for audio annotations and beat/measure for score annotations."@en ;
+                    rdfs:label "Music Time Value Type"@en .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+rdf:List rdf:type owl:Class .
+
+
+###  https://w3id.org/polifonia/ontology/music-representation/MusicContent
+mr:MusicContent owl:equivalentClass [ rdf:type owl:Class ;
+                                      owl:unionOf ( mm:AbstractScore
+                                                    mm:Recording
+                                                    mm:Score
+                                                  )
+                                    ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord
+<http://w3id.org/polifonia/resource/AnnotationType/chord> rdf:type owl:NamedIndividual ,
+                                                                   :AnnotationType ;
+                                                          rdfs:label "Chord"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord_harte
+<http://w3id.org/polifonia/resource/AnnotationType/chord_harte> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotationType ;
+                                                                rdfs:label "Chord Harte"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/chord_roman
+<http://w3id.org/polifonia/resource/AnnotationType/chord_roman> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotationType ;
+                                                                rdfs:label "Chord Roman"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotationType/key_mode
+<http://w3id.org/polifonia/resource/AnnotationType/key_mode> rdf:type owl:NamedIndividual ,
+                                                                      :AnnotationType ;
+                                                             rdfs:label "Key Mode"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/crowd
+<http://w3id.org/polifonia/resource/AnnotatorType/crowd> rdf:type owl:NamedIndividual ,
+                                                                  :AnnotatorType ;
+                                                         rdfs:comment "Then annotations are obtained through crowdsourcing the agent producing them is the crowd"@en ;
+                                                         rdfs:label "Crowd"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/expert_human
+<http://w3id.org/polifonia/resource/AnnotatorType/expert_human> rdf:type owl:NamedIndividual ,
+                                                                         :AnnotatorType ;
+                                                                rdfs:comment "Expert Human"@en .
+
+
+###  http://w3id.org/polifonia/resource/AnnotatorType/program
+<http://w3id.org/polifonia/resource/AnnotatorType/program> rdf:type owl:NamedIndividual ,
+                                                                    :AnnotatorType ;
+                                                           rdfs:label "Program"@en .
+
+
+###  http://w3id.org/polifonia/resource/Format/jams
+<http://w3id.org/polifonia/resource/Format/jams> rdf:type owl:NamedIndividual ,
+                                                          :Format ;
+                                                 rdfs:label "JAMS"@en .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/beat
+<http://w3id.org/polifonia/resource/MusicTimeValueType/beat> rdf:type owl:NamedIndividual ,
+                                                                      :MusicTimeValueType ;
+                                                             rdfs:label "Beat"@en .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/measure
+<http://w3id.org/polifonia/resource/MusicTimeValueType/measure> rdf:type owl:NamedIndividual ,
+                                                                         :MusicTimeValueType ;
+                                                                rdfs:label "Measure"@en .
+
+
+###  http://w3id.org/polifonia/resource/MusicTimeValueType/second
+<http://w3id.org/polifonia/resource/MusicTimeValueType/second> rdf:type owl:NamedIndividual ,
+                                                                        :MusicTimeValueType ;
+                                                               rdfs:label "Second"@en .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
